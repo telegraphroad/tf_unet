@@ -41,18 +41,20 @@ class BaseDataProvider(object):
     def __init__(self, a_min=None, a_max=None):
         self.a_min = a_min if a_min is not None else -np.inf
         self.a_max = a_max if a_min is not None else np.inf
+        print('init')
 
     def _load_data_and_label(self):
         data, label = self._next_data()
-
+        print('data and label loaded')
         train_data = self._process_data(data)
+        print('train data created')
         labels = self._process_labels(label)
-
+        print('labels created')
         train_data, labels = self._post_process(train_data, labels)
 
         nx = train_data.shape[1]
         ny = train_data.shape[0]
-
+        print('nx:',str(nx),',ny:',str(ny))
         return train_data.reshape(1, ny, nx, self.channels), labels.reshape(1, ny, nx, self.n_class),
 
     def _process_labels(self, label):
@@ -68,8 +70,9 @@ class BaseDataProvider(object):
 
             labels[..., 1] = label
             labels[..., 0] = ~label
+            print('labels processed')
             return labels
-
+        print('labels processed')
         return label
 
     def _process_data(self, data):
@@ -79,7 +82,7 @@ class BaseDataProvider(object):
 
         if np.amax(data) != 0:
             data /= np.amax(data)
-
+        print('data processed')
         return data
 
     def _post_process(self, data, labels):
@@ -105,7 +108,7 @@ class BaseDataProvider(object):
             train_data, labels = self._load_data_and_label()
             X[i] = train_data
             Y[i] = labels
-
+        print('X,Y created')
         return X, Y
 
 
