@@ -36,7 +36,7 @@ class GrayScaleDataProvider(BaseDataProvider):
         rect = kwargs.get("rectangles", False)
         if rect:
             self.n_class=3
-        
+        print('grayscale initialized')    
     def _next_data(self):
         return create_image_and_label(self.nx, self.ny, **self.kwargs)
 
@@ -60,10 +60,11 @@ class RgbDataProvider(BaseDataProvider):
 
 def create_image_and_label(nx,ny, cnt = 10, r_min = 5, r_max = 50, border = 92, sigma = 20, rectangles=False):
     
-    
+    print('create image and label started')
     image = np.ones((nx, ny, 1))
     label = np.zeros((nx, ny, 3), dtype=np.bool)
     mask = np.zeros((nx, ny), dtype=np.bool)
+    print('nx,ny,cnt:',str(nx),str(ny),str(cnt))
     for _ in range(cnt):
         a = np.random.randint(border, nx-border)
         b = np.random.randint(border, ny-border)
@@ -75,6 +76,7 @@ def create_image_and_label(nx,ny, cnt = 10, r_min = 5, r_max = 50, border = 92, 
         mask = np.logical_or(mask, m)
 
         image[m] = h
+        print('image created in for loop, size of ',str(cnt))
 
     label[mask, 1] = 1
     
@@ -98,7 +100,7 @@ def create_image_and_label(nx,ny, cnt = 10, r_min = 5, r_max = 50, border = 92, 
     image += np.random.normal(scale=sigma, size=image.shape)
     image -= np.amin(image)
     image /= np.amax(image)
-    
+    print('image and label created')
     if rectangles:
         return image, label
     else:
