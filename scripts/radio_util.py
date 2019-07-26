@@ -34,6 +34,7 @@ class DataProvider(BaseDataProvider):
     n_class = 2
     
     def __init__(self, nx, files, a_min=30, a_max=210):
+        import pdb; pdb.set_trace()
         super(DataProvider, self).__init__(a_min, a_max)
         self.nx = nx
         self.files = files
