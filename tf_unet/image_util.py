@@ -39,11 +39,16 @@ class BaseDataProvider(object):
     n_class = 2
 
     def __init__(self, a_min=None, a_max=None):
+        print('init B=======================================================')
+        import pdb; pdb.set_trace()
         self.a_min = a_min if a_min is not None else -np.inf
         self.a_max = a_max if a_min is not None else np.inf
         print('init')
 
     def _load_data_and_label(self):
+        print('load data and label B=======================================================')
+        import pdb; pdb.set_trace()
+
         data, label = self._next_data()
         print('data and label loaded')
         train_data = self._process_data(data)
@@ -58,6 +63,9 @@ class BaseDataProvider(object):
         return train_data.reshape(1, ny, nx, self.channels), labels.reshape(1, ny, nx, self.n_class),
 
     def _process_labels(self, label):
+        print('proc label B=======================================================')
+        import pdb; pdb.set_trace()
+
         if self.n_class == 2:
             nx = label.shape[1]
             ny = label.shape[0]
@@ -77,6 +85,9 @@ class BaseDataProvider(object):
 
     def _process_data(self, data):
         # normalization
+        print('proc data B=======================================================')
+        import pdb; pdb.set_trace()
+        
         data = np.clip(np.fabs(data), self.a_min, self.a_max)
         data -= np.amin(data)
 
@@ -95,6 +106,10 @@ class BaseDataProvider(object):
         return data, labels
 
     def __call__(self, n):
+        print('call B=======================================================')
+        print('n~~~~~~~~~~~~~~~~~~~~~~~~: ',str(n))
+        import pdb; pdb.set_trace()
+        
         train_data, labels = self._load_data_and_label()
         nx = train_data.shape[1]
         ny = train_data.shape[2]
