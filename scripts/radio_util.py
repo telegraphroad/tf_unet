@@ -34,7 +34,7 @@ class DataProvider(BaseDataProvider):
     n_class = 2
     
     def __init__(self, nx, files, a_min=30, a_max=210):
-        print('init=======================================================')
+        print('init DP=======================================================')
         import pdb; pdb.set_trace()
         super(DataProvider, self).__init__(a_min, a_max)
         self.nx = nx
@@ -45,7 +45,7 @@ class DataProvider(BaseDataProvider):
         self._cylce_file()
     
     def _read_chunck(self):
-        print('readchunk==================================================')
+        print('readchunk DP==================================================')
         import pdb; pdb.set_trace()
         with h5py.File(self.files[self.file_idx], "r") as fp:
             nx = fp["data"].shape[1]
@@ -57,7 +57,7 @@ class DataProvider(BaseDataProvider):
         return data, rfi
     
     def _next_data(self):
-        print('nextdata===================================================')
+        print('nextdata DP===================================================')
         import pdb; pdb.set_trace()
         data, rfi = self._read_chunck()
         nx = data.shape[1]
@@ -69,7 +69,7 @@ class DataProvider(BaseDataProvider):
         return data, rfi
 
     def _cylce_file(self):
-        print('cyclefile===================================================')
+        print('cyclefile DP===================================================')
         import pdb; pdb.set_trace()
         self.file_idx = np.random.choice(len(self.files))
         
