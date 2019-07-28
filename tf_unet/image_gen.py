@@ -61,6 +61,8 @@ class RgbDataProvider(BaseDataProvider):
 def create_image_and_label(nx,ny, cnt = 10, r_min = 5, r_max = 50, border = 92, sigma = 20, rectangles=False):
     
     print('create image and label started')
+    import pdb; pdb.set_trace()
+
     image = np.ones((nx, ny, 1))
     label = np.zeros((nx, ny, 3), dtype=np.bool)
     mask = np.zeros((nx, ny), dtype=np.bool)
